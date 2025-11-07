@@ -52,7 +52,7 @@ const Home: React.FC<HomeProps> = () => {
           <AiOutlineWallet className={iconStyle} />
           <span className={`${glowText} text-xs`}>Neon Network</span>
         </div>
-        <h2 className={`${glowText} text-3xl text-center mb-2`}>Minimal Cyberpunk dApp</h2>
+        <h2 className={`${glowText} text-3xl text-center mb-2`}>Minimal Carbon market dApp</h2>
         <p className="text-[#e0e0ff] text-sm text-center max-w-md mb-4">
           Connect your wallet, send payments, mint NFTs, create tokens, and interact with contracts.
         </p>
