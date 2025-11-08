@@ -141,6 +141,16 @@ For pushes to `main` branch, after the above checks pass, the following deployme
 This project makes use of Algorand TypeScript to build Algorand smart contracts. The following tools are in use:
 
 - [Algorand](https://www.algorand.com/) - Layer 1 Blockchain; [Developer portal](https://dev.algorand.co/), [Why Algorand?](https://dev.algorand.co/getting-started/why-algorand/)
+## Mapping contracts to CarbonChain product
+
+This template can be adapted for carbon credit tokenization (prototype guidance):
+
+- Issuance contract (smart contract app): mint native asset tokens that represent a verified carbon credit bundle. Store issuance metadata (project id, vintage, methodology hash) in on-chain state or off-chain IPFS with the hash on-chain.
+- Fractionalization: a separate contract can hold a large credit (or ASA) and issue fungible fractional tokens representing portions of the credit for retail participation.
+- Retirement flow: a contract action that marks token IDs as retired, emits an on-chain retirement event, and updates a retirements registry to prevent double-counting.
+- Registry & verification: store verification certificate hashes in contract global/local state; link to an off-chain verifier (oracle) to prove third-party verification.
+
+When adapting, add a new contract folder under `smart_contracts/` and follow the same build/deploy patterns in this repo. Ensure to commit compiled artifacts for CI reproducibility.
 - [AlgoKit](https://github.com/algorandfoundation/algokit-cli) - One-stop shop tool for developers building on the Algorand network; [docs](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/algokit.md), [intro tutorial](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/tutorials/intro.md)
 - [Algorand TypeScript](https://github.com/algorandfoundation/puya-ts/) - A semantically and syntactically compatible, typed TypeScript language that works with standard TypeScript tooling and allows you to express smart contracts (apps) and smart signatures (logic signatures) for deployment on the Algorand Virtual Machine (AVM); [docs](https://github.com/algorandfoundation/puya-ts/), [examples](https://github.com/algorandfoundation/puya-ts/tree/main/examples)
 - [AlgoKit Utils](https://github.com/algorandfoundation/algokit-utils-ts) - A set of core Algorand utilities that make it easier to build solutions on Algorand.

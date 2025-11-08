@@ -1,136 +1,48 @@
-// Home.tsx - Cyberpunk Redesign
-// test-20251028
+/*
+  Home.tsx - Carbon Credit Tokenization dashboard (simplified)
+  This file replaces the original cyberpunk demo UI with a clearer dashboard
+  focused on non-technical users: credits earned, CO2 reduced, verified projects
+  and a simple ESG report generator. The components are intentionally minimal
+  and use mock data for a demo/prototype. Integrate real APIs and contract
+  calls later.
+*/
 
 import { useWallet } from '@txnlab/use-wallet-react'
-import React, { useState } from 'react'
-import { AiOutlineDeploymentUnit, AiOutlineSend, AiOutlineStar, AiOutlineWallet } from 'react-icons/ai'
-import { BsArrowUpRightCircle, BsWallet2 } from 'react-icons/bs'
-
-// Frontend modals
-import AppCalls from './components/AppCalls'
+import React from 'react'
 import ConnectWallet from './components/ConnectWallet'
-import NFTmint from './components/NFTmint'
-import Tokenmint from './components/Tokenmint'
-import Transact from './components/Transact'
+import Dashboard from './components/Dashboard'
 
-interface HomeProps {}
-
-const neonBorder = "border border-[#00fff7]"
-const glassBg = "bg-[#181824]/90 backdrop-blur"
-const glowText = "text-[#00fff7] font-bold"
-const iconStyle = "text-2xl text-[#ff00cc]"
-
-const Home: React.FC<HomeProps> = () => {
-  const [openWalletModal, setOpenWalletModal] = useState<boolean>(false)
-  const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false)
-  const [openMintModal, setOpenMintModal] = useState<boolean>(false)
-  const [openTokenModal, setOpenTokenModal] = useState<boolean>(false)
-  const [openAppCallsModal, setOpenAppCallsModal] = useState<boolean>(false)
-
+const Home: React.FC = () => {
   const { activeAddress } = useWallet()
 
   return (
-    <div className={`min-h-screen ${glassBg} flex flex-col items-center justify-between font-mono`}>
-      {/* Navbar */}
-      <nav className={`w-full flex items-center justify-between px-4 py-3 ${neonBorder}`}>
-        <div className="flex items-center gap-2">
-          <span className="h-7 w-7 flex items-center justify-center rounded-full bg-[#ff00cc] text-[#181824] font-bold border border-[#00fff7]">A</span>
-          <span className={`${glowText} text-lg tracking-widest`}>Algorand CyberdApp</span>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center">
+      <nav className="w-full max-w-6xl flex items-center justify-between px-6 py-4 border-b bg-white">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-green-600 text-white flex items-center justify-center font-bold">CC</div>
+          <div>
+            <div className="text-lg font-semibold">CarbonChain</div>
+            <div className="text-xs text-gray-500">Transparent carbon credit tokenization</div>
+          </div>
         </div>
-        <button
-          className={`flex items-center gap-2 px-3 py-1 rounded ${neonBorder} text-xs ${glowText}`}
-          onClick={() => setOpenWalletModal(true)}
-        >
-          <BsWallet2 className="text-[#00fff7]" />
-          {activeAddress ? 'Wallet Linked' : 'Connect'}
-        </button>
+        <div className="flex items-center gap-3">
+          <div className="text-sm text-gray-600">{activeAddress ?? 'No wallet connected'}</div>
+          <ConnectWallet openModal={false} closeModal={() => {}} />
+        </div>
       </nav>
 
-      {/* Hero */}
-      <header className="w-full flex flex-col items-center py-10">
-        <div className="flex items-center gap-2 mb-2">
-          <AiOutlineWallet className={iconStyle} />
-          <span className={`${glowText} text-xs`}>Neon Network</span>
-        </div>
-        <h2 className={`${glowText} text-3xl text-center mb-2`}>Minimal Carbon market dApp</h2>
-        <p className="text-[#e0e0ff] text-sm text-center max-w-md mb-4">
-          Connect your wallet, send payments, mint NFTs, create tokens, and interact with contracts.
-        </p>
-        <div className="flex gap-2">
-          <button
-            onClick={() => setOpenWalletModal(true)}
-            className={`px-4 py-2 rounded ${neonBorder} ${glowText} text-xs`}
-          >
-            {activeAddress ? 'Manage Wallet' : 'Connect Wallet'}
-          </button>
-          <a
-            href="#features"
-            className={`px-4 py-2 rounded ${neonBorder} ${glowText} text-xs`}
-          >
-            Features
-          </a>
-        </div>
-      </header>
+      <main className="w-full max-w-6xl px-6 py-8">
+        <header className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-800">CarbonChain dashboard</h1>
+          <p className="text-gray-600 mt-1 max-w-2xl">An intuitive interface to tokenize verified carbon credits, track retirements, and generate ESG-compliant reports. Built on Algorand and designed for DPI-first integrations.</p>
+        </header>
 
-      {/* Features */}
-      <main id="features" className="w-full flex-1 flex flex-col items-center">
-        {activeAddress ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
-            <button
-              className={`flex flex-col items-center gap-2 p-4 rounded ${glassBg} ${neonBorder} hover:bg-[#23234a]`}
-              onClick={() => setOpenPaymentModal(true)}
-            >
-              <AiOutlineSend className={iconStyle} />
-              <span className={`${glowText} text-sm`}>Send Payment</span>
-            </button>
-            <button
-              className={`flex flex-col items-center gap-2 p-4 rounded ${glassBg} ${neonBorder} hover:bg-[#23234a]`}
-              onClick={() => setOpenMintModal(true)}
-            >
-              <AiOutlineStar className={iconStyle} />
-              <span className={`${glowText} text-sm`}>Mint NFT</span>
-            </button>
-            <button
-              className={`flex flex-col items-center gap-2 p-4 rounded ${glassBg} ${neonBorder} hover:bg-[#23234a]`}
-              onClick={() => setOpenTokenModal(true)}
-            >
-              <BsArrowUpRightCircle className={iconStyle} />
-              <span className={`${glowText} text-sm`}>Create Token</span>
-            </button>
-            <button
-              className={`flex flex-col items-center gap-2 p-4 rounded ${glassBg} ${neonBorder} hover:bg-[#23234a]`}
-              onClick={() => setOpenAppCallsModal(true)}
-            >
-              <AiOutlineDeploymentUnit className={iconStyle} />
-              <span className={`${glowText} text-sm`}>Contract Interactions</span>
-            </button>
-          </div>
-        ) : (
-          <div className="w-full flex flex-col items-center py-10">
-            <p className="text-[#e0e0ff] text-base mb-4 text-center">
-              ⚡ Connect your wallet to unlock neon features.
-            </p>
-            <button
-              className={`px-6 py-3 rounded ${neonBorder} ${glowText} text-sm`}
-              onClick={() => setOpenWalletModal(true)}
-            >
-              Connect Wallet
-            </button>
-          </div>
-        )}
+        <Dashboard address={activeAddress ?? null} />
       </main>
 
-      {/* Footer */}
-      <footer className="w-full py-4 text-center text-xs text-[#00fff7] font-bold border-t border-[#00fff7]">
-        Minimal cyberpunk dApp template.
+      <footer className="w-full max-w-6xl px-6 py-6 text-sm text-gray-500">
+        © {new Date().getFullYear()} CarbonChain — prototype. For demo only.
       </footer>
-
-      {/* Modals */}
-      <ConnectWallet openModal={openWalletModal} closeModal={() => setOpenWalletModal(false)} />
-      <Transact openModal={openPaymentModal} setModalState={setOpenPaymentModal} />
-      <NFTmint openModal={openMintModal} setModalState={setOpenMintModal} />
-      <Tokenmint openModal={openTokenModal} setModalState={setOpenTokenModal} />
-      <AppCalls openModal={openAppCallsModal} setModalState={setOpenAppCallsModal} />
     </div>
   )
 }

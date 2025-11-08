@@ -53,3 +53,13 @@ The frontend starter also provides an example of interactions with your HelloWor
 ## Next Steps
 
 You can take this project and customize it to build your own decentralized applications on Algorand. Make sure to understand how to use AlgoKit and how to write smart contracts for Algorand before you start.
+
+## CarbonChain (example product built on this template)
+
+This repository has been extended with a prototype direction called "CarbonChain" — a carbon credit tokenization product designed to demonstrate how you can build transparency, verifiability, and DPI-first integrations on Algorand.
+
+- Frontend prototype: `projects/QuickStartTemplate-frontend/src/Home.tsx` was replaced with a dashboard-driven UI showcasing credits, CO₂ reduced, and an ESG report download feature.
+- Smart contract guidance: see `projects/QuickStartTemplate-contracts/README.md` for mapping contract roles (issuance, fractionalization, retirement).
+- DPI guidance: see `DPI_INTEGRATION.md` for patterns to integrate with national DPIs or reuse DPGs.
+
+This is a prototype to accelerate product conversations. For production: add robust oracles for verification, secure issuer onboarding, KYC/AML where required, and audit-ready logging.
